@@ -1,11 +1,12 @@
 import {Link} from "react-router-dom";
 import {useContext, useEffect} from "react";
 import {UserContext} from "./UserContext";
+import { BASE_URL } from './constants';
 
 export default function Header() {
   const {setUserInfo,userInfo} = useContext(UserContext);
   useEffect(() => {
-    fetch('https://back-m7md.onrender.com/profile', {
+    fetch(`${BASE_URL}/profile`, {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -15,7 +16,7 @@ export default function Header() {
   }, [setUserInfo]);
 
   function logout() {
-    fetch('https://back-m7md.onrender.com/logout', {
+    fetch(`${BASE_URL}/logout`, {
       credentials: 'include',
       method: 'POST',
     });

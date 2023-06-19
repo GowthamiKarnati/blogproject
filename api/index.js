@@ -10,11 +10,12 @@ const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/' });
 const fs = require('fs');
+const path = require('path')
 
+app.use(cors());
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 const connectDB = require('./config/db')
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -59,6 +60,7 @@ app.post('/login', async (req,res) => {
 
   app.get('/profile', (req,res) => {
     const {token} = req.cookies;
+    if (!token) return res.json({msg: "Please login first"})
     jwt.verify(token, secret, {}, (err,info) => {
       if (err) throw err;
       res.json(info);
@@ -141,6 +143,10 @@ app.post('/login', async (req,res) => {
     res.json(postDoc);
   })
   
+  app.use(express.static(path.resolve(__dirname, 'build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+  })
 
 
 app.listen(4000,()=>{

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState} from "react";
 import {useNavigate,} from "react-router-dom";
+import { BASE_URL } from '../constants';
 //import {UserContext} from "../UserContext";
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const RegisterPage = () => {
 
     async function register(ev) {
     ev.preventDefault();
-    const response = await fetch('https://back-m7md.onrender.com/register', {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       body: JSON.stringify({username,password}),
       headers: {'Content-Type':'application/json'},

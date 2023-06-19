@@ -1,0 +1,9 @@
+# POST https://back-m7md.onrender.com/login
+# Content-Type: application/json
+
+# {
+#     "username": "Hello",
+#     "password": "hello@123"
+# }
+
+GET https://back-m7md.onrender.com/profile

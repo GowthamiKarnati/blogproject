@@ -3,6 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import {useState} from "react";
 import {Navigate} from "react-router-dom";
 import Editor from "../Editor";
+import { BASE_URL } from '../constants';
 
 export default function CreatePost() {
   const [title,setTitle] = useState('');
@@ -17,7 +18,7 @@ export default function CreatePost() {
     data.set('content', content);
     data.set('file', files[0]);
     ev.preventDefault();
-    const response = await fetch('https://back-m7md.onrender.com/post', {
+    const response = await fetch(`${BASE_URL}/post`, {
       method: 'POST',
       body: data,
       credentials: 'include',
@@ -47,6 +48,3 @@ export default function CreatePost() {
     </form>
   );
 }
-
-
-//https://backend-fgo2.onrender.com/
