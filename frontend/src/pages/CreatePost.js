@@ -17,7 +17,7 @@ export default function CreatePost() {
     data.set('content', content);
     data.set('file', files[0]);
     ev.preventDefault();
-    const response = await fetch('https://back-m7md.onrender.com/post', {
+    const response = await fetch('https://backend-fgo2.onrender.com/post', {
       method: 'POST',
       body: data,
       credentials: 'include',
@@ -47,3 +47,6 @@ export default function CreatePost() {
     </form>
   );
 }
+
+
+//https://backend-fgo2.onrender.com/

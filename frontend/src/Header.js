@@ -5,7 +5,7 @@ import {UserContext} from "./UserContext";
 export default function Header() {
   const {setUserInfo,userInfo} = useContext(UserContext);
   useEffect(() => {
-    fetch('https://back-m7md.onrender.com/profile', {
+    fetch('https://backend-fgo2.onrender.com/profile', {
       credentials: 'include',
     }).then(response => {
       response.json().then(userInfo => {
@@ -15,7 +15,7 @@ export default function Header() {
   }, [setUserInfo]);
 
   function logout() {
-    fetch('https://back-m7md.onrender.com/logout', {
+    fetch('https://backend-fgo2.onrender.com/logout', {
       credentials: 'include',
       method: 'POST',
     });

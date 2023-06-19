@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 export default function IndexPage() {
   const [posts,setPosts] = useState([]);
   useEffect(() => {
-    fetch('https://back-m7md.onrender.com/post').then(response => {
+    fetch('https://backend-fgo2.onrender.com/post').then(response => {
       response.json().then(posts => {
         setPosts(posts);
       });

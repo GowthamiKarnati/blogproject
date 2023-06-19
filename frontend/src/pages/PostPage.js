@@ -9,7 +9,7 @@ export default function PostPage() {
   const {userInfo} = useContext(UserContext);
   const {id} = useParams();
   useEffect(() => {
-    fetch(`https://back-m7md.onrender.com/${id}`)
+    fetch(`https://backend-fgo2.onrender.com/${id}`)
       .then(response => {
         response.json().then(postInfo => {
           setPostInfo(postInfo);
@@ -35,7 +35,7 @@ export default function PostPage() {
         </div>
       )}
       <div className="image">
-        <img src={`https://back-m7md.onrender.com/${postInfo.cover}`} alt=""/>
+        <img src={`https://backend-fgo2.onrender.com/${postInfo.cover}`} alt=""/>
       </div>
       <div className="content" dangerouslySetInnerHTML={{__html:postInfo.content}} />
     </div>

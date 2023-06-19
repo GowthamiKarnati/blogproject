@@ -9,7 +9,7 @@ const RegisterPage = () => {
 
     async function register(ev) {
     ev.preventDefault();
-    const response = await fetch('https://back-m7md.onrender.com/register', {
+    const response = await fetch('https://backend-fgo2.onrender.com/register', {
       method: 'POST',
       body: JSON.stringify({username,password}),
       headers: {'Content-Type':'application/json'},
