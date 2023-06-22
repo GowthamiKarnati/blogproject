@@ -75,23 +75,32 @@ app.post('/login', async (req,res) => {
 
   
  app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
-    const {originalname,path} = req.file;
-    const parts = originalname.split('.');
-    const ext = parts[parts.length - 1];
-    const newPath = path+'.'+ext;
-    fs.renameSync(path, newPath);
+    const {originalname = '',path = ''} = req?.file || {};
+    let newPath;
+    if (req?.file) {
+      const parts = originalname.split('.');
+      const ext = parts[parts.length - 1];
+      newPath = path+'.'+ext;
+      fs.renameSync(path, newPath);
+    }
   
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err,info) => {
       if (err) throw err;
       const {title,summary,content} = req.body;
-      const postDoc = await Post.create({
+
+      const params = {
         title,
         summary,
         content,
-        cover:newPath,
         author:info.id,
-      });
+      };
+
+      if (newPath) {
+        params.cover = newPath
+      }
+      
+      const postDoc = await Post.create(params);
       res.json(postDoc);
     });
   
@@ -99,14 +108,16 @@ app.post('/login', async (req,res) => {
 
   app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
     let newPath = null;
-    if (req.file) {
-      const {originalname,path} = req.file;
+    if (req?.file) {
+      const {originalname = '',path = ''} = req?.file || {};
       const parts = originalname.split('.');
       const ext = parts[parts.length - 1];
       newPath = path+'.'+ext;
-      fs.renameSync(path, newPath);
+      if (newPath){
+        fs.renameSync(path, newPath);
+      }
     }
-  
+
     const {token} = req.cookies;
     jwt.verify(token, secret, {}, async (err,info) => {
       if (err) throw err;

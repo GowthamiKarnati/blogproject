@@ -11,6 +11,11 @@ export default function CreatePost() {
   const [content,setContent] = useState('');
   const [files, setFiles] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
+
+
   async function createNewPost(ev) {
     const data = new FormData();
     data.set('title', title);
@@ -31,8 +36,13 @@ export default function CreatePost() {
   if (redirect) {
     return <Navigate to={'/'} />
   }
+
+  
+
   return (
-    <form onSubmit={createNewPost}>
+    
+
+    <form onSubmit={createNewPost} method="POST" enctype="multipart/form-data" >
       <input type="title"
              placeholder={'Title'}
              value={title}
@@ -44,7 +54,10 @@ export default function CreatePost() {
       <input type="file"
              onChange={ev => setFiles(ev.target.files)} />
       <Editor value={content} onChange={setContent} />
-      <button style={{marginTop:'5px'}}>Create post</button>
+      <button style={{marginTop:'5px'}} onClick={() => setLoading(!loading)}>
+{loading ? <span>Loading....</span> : <span>Create post </span>}
+        
+        </button>
     </form>
   );
 }
